@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import { Api } from './Api';
+import { timeout } from 'rxjs';
 
 function App() {
+
+  useEffect(() => {
+    const api = new Api();
+
+    setTimeout(() => {
+      api.getModuleSources();
+    },5000);
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      hoi
     </div>
   );
 }
