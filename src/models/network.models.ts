@@ -25,6 +25,12 @@ export type NetworkRelationship = {
 
 export type NetworkScan = {
     macAddress:string,
-    networkPinks:NetworkPing[],
+    networkPings:NetworkPing[],
     dateTime:Date
+}
+
+export type NetworkHistory = {
+    macAddress:string,
+    latestRSSI:ScannedNetwork[][];
+    averageRSSI:ScannedNetwork[][];
 }

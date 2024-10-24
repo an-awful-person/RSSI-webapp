@@ -9,7 +9,7 @@ export enum API_METHOD {
     DELETE = "DELETE"
 }
 
-export const API_URL = "http://192.168.2.195:5000/api/NetworksScan/";
+export const API_URL = "http://192.168.1.13:5000/api/NetworksScan/";
 
 export class Api {
 
@@ -29,10 +29,10 @@ export class Api {
 
         const requestOptions = {
             method: options?.method ?? API_METHOD.GET,
-            headers: {
-                'Content-Type': 'application/json',
-                // body: formDataString
-            }
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     body: formDataString
+            // }
         }
 
         return new Promise<T>(async (resolve,reject) => {
@@ -70,7 +70,14 @@ export class Api {
     }
 
     public getLatestScansFrom(scanningSSID:string, secondsAgo?:number){
-        return this.apiCall<ScannedNetwork[]>(`${API_URL}latest_scans_from`, {
+        const parameters = secondsAgo !== undefined ? {
+            scanningSSID:scanningSSID,
+            seconds: secondsAgo
+        } : {
+            scanningSSID:scanningSSID
+        }
+
+        return this.apiCall<ScannedNetwork[]>(`${API_URL}latest_scans_from?${new URLSearchParams(Object.entries(parameters) as string[][]).toString()}`, {
             formData: {
                 scanningSSID:scanningSSID,
                 seconds:secondsAgo
@@ -79,7 +86,14 @@ export class Api {
     }
 
     public getAverageScansFrom(scanningSSID:string, secondsAgo?:number){
-        return this.apiCall<ScannedNetwork[]>(`${API_URL}all_average_RSSI_from`, {
+        const parameters = secondsAgo !== undefined ? {
+            scanningSSID:scanningSSID,
+            seconds: secondsAgo
+        } : {
+            scanningSSID:scanningSSID
+        }
+
+        return this.apiCall<ScannedNetwork[]>(`${API_URL}all_average_RSSI_from?${new URLSearchParams(Object.entries(parameters) as string[][]).toString()}`, {
             formData: {
                 scanningSSID:scanningSSID,
                 seconds:secondsAgo
